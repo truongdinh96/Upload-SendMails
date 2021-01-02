@@ -17,13 +17,8 @@ class FileUploadController extends Controller
 
     public function store(Request $request)
     {
-        $name = $request->file('file')->getClientOriginalName();
-
+        $name = base64_encode($request->file('file')->getClientOriginalName());
         $path = $request->file('file')->store('public/files');
-
-        $file = Storage::disk('local')->get($path);
-
-        Storage::get($path);
         $title = $request->request->get('title');
         $description = $request->request->get('description');
 
@@ -36,10 +31,10 @@ class FileUploadController extends Controller
 
         $save->save();
 
-        $a = User::where('is_admin', 1)->get();
-        $b = [];
-        foreach ($a as $key => $value) {
-            $b[] = $a[$key]['email'];
+        $userIsAdmin = User::where('is_admin', 1)->get();
+        $emailsOfAdmin = [];
+        foreach ($userIsAdmin as $key => $value) {
+            $emailsOfAdmin[] = $userIsAdmin[$key]['email'];
         }
 
         $details = [
@@ -49,8 +44,8 @@ class FileUploadController extends Controller
             'path' => $path
         ];
 
-        foreach ($b as $c) {
-            Mail::to($c)->send(new \App\Mail\SendMail($details));
+        foreach ($emailsOfAdmin as $emails) {
+            Mail::to($emails)->send(new \App\Mail\SendMail($details));
         }
 
         return redirect('file-upload')

@@ -27,7 +27,7 @@ class SendMail extends Mailable
      */
     public function build()
     {
-        return $this->subject('Truong')
+        return $this->subject('Send Mail')
             ->view('emails.email')
             ->attachFromStorage($this->details['path']);
     }

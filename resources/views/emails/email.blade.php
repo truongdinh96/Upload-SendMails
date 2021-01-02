@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>truong</title>
+    <title>Email</title>
 </head>
 <body>
 <h1>{{ $details['title'] }}</h1>
-<p>{{ $details['name'] }}</p>
-<p>{{ $details['description'] }}</p>
-<p>{{ $details['path'] }}</p>
+<p>Name: {{ $details['name'] }}</p>
+<p>Description: {{ $details['description'] }}</p>
 
 <p>Thank you</p>
 </body>

@@ -19,8 +19,12 @@
 
             <div class="col-md-12">
                 <div class="form-group">
-                    <label for="title">Title</label><input id="title" type="text" name="title" value="{{ old('title') }}" required>
-                    <label for="description">Description</label><input id="description" type="text" name="description" value="{{ old('description') }}" required>
+                    <div>
+                        <label for="title">Title: </label><input id="title" type="text" name="title" value="{{ old('title') }}" required>
+                    </div>
+                    <div>
+                        <label for="description">Description: </label><input id="description" type="text" name="description" value="{{ old('description') }}" required>
+                    </div>
                     <input type="file" name="file" placeholder="Choose file" id="file">
                     @error('file')
                     <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>

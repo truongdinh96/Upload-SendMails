@@ -1,0 +1,9 @@
+.col-md-12 label {
+    display: block;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.col-md-12 button {
+    padding: 5px 20px;
+}

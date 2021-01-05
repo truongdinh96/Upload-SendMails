@@ -4,9 +4,9 @@
     <title>Email</title>
 </head>
 <body>
-<h1>{{ $details['title'] }}</h1>
-<p>Name: {{ $details['name'] }}</p>
-<p>Description: {{ $details['description'] }}</p>
+<p>Full Name: {{ $details['full_name'] }}</p>
+<p>Email: {{ $details['email'] }}</p>
+<p>Message: {{ $details['message'] }}</p>
 
 <p>Thank you</p>
 </body>

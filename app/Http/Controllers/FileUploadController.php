@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Mail;
 
 class FileUploadController extends Controller
@@ -13,12 +15,16 @@ class FileUploadController extends Controller
         return view('file-upload');
     }
 
+    /**
+     * @param Request $request
+     * @return RedirectResponse|Redirector
+     */
     public function store(Request $request)
     {
-        $name = $request->file('file')->getClientOriginalName();
         $path = $request->file('file')->store('public/files');
-        $title = $request->request->get('title');
-        $description = $request->request->get('description');
+        $full_name = $request->request->get('full_name');
+        $email = $request->request->get('email');
+        $message = $request->request->get('message');
 
         $userIsAdmin = User::where('is_admin', 1)->get();
         $emailsOfAdmin = [];
@@ -27,9 +33,9 @@ class FileUploadController extends Controller
         }
 
         $details = [
-            'name' => $name,
-            'title' => $title,
-            'description' => $description,
+            'full_name' => $full_name,
+            'email' => $email,
+            'message' => $message,
             'path' => $path
         ];
 
@@ -39,6 +45,5 @@ class FileUploadController extends Controller
 
         return redirect('file-upload')
             ->with('OK');
-
     }
 }

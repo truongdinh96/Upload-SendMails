@@ -8,42 +8,61 @@
 
 </head>
 <body>
-
-<div class="container mt-4">
-
-    <h2 class="text-center">File Upload</h2>
-
-    <form method="POST" enctype="multipart/form-data" id="upload-file" action="{{ url('store') }}"
-          onsubmit="return validateFile()">
-        @csrf
-        <div class="row">
-
-            <div class="col-md-12">
-                <div class="form-group">
-                    <label for="title">Title </label>
-                    <input id="title" type="text" name="title" value="{{ old('title') }}" required>
-                </div>
-                <div class="form-group">
-                    <label for="description">Description </label>
-                    <input id="description" type="text" name="description" value="{{ old('description') }}" required>
-                </div>
-                <div class="form-group">
-                    <input type="file" name="file" placeholder="Choose file" id="file">
-                    @error('file')
-                    <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-                    @enderror
-                </div>
+<div class="page-wrapper bg-dark p-t-100 p-b-50">
+    <div class="wrapper wrapper--w900">
+        <div class="card card-6">
+            <div class="card-heading">
+                <h2 class="title">Apply for job</h2>
             </div>
-
-            <div class="col-md-12">
-                <button type="submit" class="btn btn-primary" id="submit">Submit</button>
+            <div class="card-body">
+                <form method="POST" enctype="multipart/form-data" id="upload-file" action="{{ url('store') }}"
+                      onsubmit="return validateFile()">
+                    @csrf
+                    <div class="form-row">
+                        <div class="name">Full name</div>
+                        <div class="value">
+                            <input class="input--style-6" id="full_name" type="text" name="full_name">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="name">Email address</div>
+                        <div class="value">
+                            <div class="input-group">
+                                <input class="input--style-6" id="email" type="email" name="email" placeholder="example@email.com">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="name">Message</div>
+                        <div class="value">
+                            <div class="input-group">
+                                <textarea class="textarea--style-6" id="message" name="message" placeholder="Message sent to the employer"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="name">Upload File</div>
+                        <div class="value">
+                            <div class="input-group js-input-file">
+                                <input class="input-file" type="file" name="file" id="file">
+                                <label class="label--file" for="file">Choose file</label>
+                                <span class="input-file__info">No file chosen</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <button class="btn btn--radius-2 btn--blue-2" type="submit" id="submit">Send Email</button>
+                    </div>
+                </form>
             </div>
         </div>
-    </form>
+    </div>
 </div>
 
-</body>
-<script src="{{'assets/js/jquery.min.js'}}"></script>
+<!-- Jquery JS-->
+<script src={{"assets/js/jquery.min.js"}}></script>
+<!-- Main JS-->
+<script src={{"assets/js/global.js"}}></script>
 <script>
     function validateFile() {
         let allowedExtension = ['jpeg', 'jpg', 'png', 'gif', 'bmp'];
@@ -65,4 +84,6 @@
         return isValidFile;
     }
 </script>
+
+</body>
 </html>

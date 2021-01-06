@@ -12,7 +12,7 @@
     <div class="wrapper wrapper--w900">
         <div class="card card-6">
             <div class="card-heading">
-                <h2 class="title">Apply for job</h2>
+                <h2 class="title">Upload image file</h2>
             </div>
             <div class="card-body">
                 <form method="POST" enctype="multipart/form-data" id="upload-file" action="{{ url('store') }}"
@@ -70,7 +70,6 @@
         let isValidFile = false;
 
         for (let index in allowedExtension) {
-
             if (fileExtension === allowedExtension[index]) {
                 isValidFile = true;
                 break;

@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
+use App\EmailData;
+use App\Events\UploadFileEvent;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
@@ -22,28 +23,12 @@ class FileUploadController extends Controller
     public function store(Request $request)
     {
         $path = $request->file('file')->store('public/files');
-        $full_name = $request->request->get('full_name');
+        $name = $request->request->get('full_name');
         $email = $request->request->get('email');
         $message = $request->request->get('message');
 
-        $userIsAdmin = User::where('is_admin', 1)->get();
-        $emailsOfAdmin = [];
-        foreach ($userIsAdmin as $key => $value) {
-            $emailsOfAdmin[] = $userIsAdmin[$key]['email'];
-        }
+        event(new UploadFileEvent(new EmailData($path, $email, $name, $message)));
 
-        $details = [
-            'full_name' => $full_name,
-            'email' => $email,
-            'message' => $message,
-            'path' => $path
-        ];
-
-        foreach ($emailsOfAdmin as $emails) {
-            Mail::to($emails)->send(new \App\Mail\SendMail($details));
-        }
-
-        return redirect('file-upload')
-            ->with('OK');
+        return redirect('file-upload')->with('OK');
     }
 }
